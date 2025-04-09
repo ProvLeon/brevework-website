@@ -1,29 +1,21 @@
 "use client";
 
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+// Remove framer-motion and usePathname imports if no longer needed here
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  // No need for pathname or animation here anymore
 
   return (
     <ThemeProvider storageKey="brevework-theme" defaultTheme="system">
-      <AnimatePresence mode="wait">
-        {/* This div receives the theme classes and transitions */}
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          // Ensure these classes are present for smooth visual theme change
-          className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-300 ease-in-out"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      {/* The wrapper div with theme transition classes can optionally stay if you
+              want the whole background to transition colors smoothly, but the
+              page-specific animation is removed. Alternatively, apply these
+              classes to the body in layout.tsx or globals.css */}
+      <div className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-300 ease-in-out">
+        {children}
+      </div>
     </ThemeProvider>
   );
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Providers } from "./providers";
+import PageTransitionWrapper from "@/components/layout/PageTransitionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,18 +42,15 @@ const themeInitializerScript = `
 
   })()`;
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* Add the script inside <head> for earliest possible execution */}
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }} />
       </head>
-      <body className={`${geistSans.variable} antialiased flex flex-col min-h-screen`}>
+      {/* Apply base layout styles here */}
+      <body className={`${geistSans.variable} antialiased`}> {/* Removed flex/min-h here, handled by Providers div */}
+        {/* Providers wraps everything needing theme */}
         <Providers>
           <a
             href="#main-content"
@@ -60,11 +58,17 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
-          <Header />
+          <Header /> {/* Header is outside the animation wrapper */}
+
+          {/* Main content area */}
           <main id="main-content" className="flex-grow">
-            {children}
+            {/* PageTransitionWrapper handles the animation ONLY around children */}
+            <PageTransitionWrapper>
+              {children}
+            </PageTransitionWrapper>
           </main>
-          <Footer />
+
+          <Footer /> {/* Footer is outside the animation wrapper */}
         </Providers>
       </body>
     </html>

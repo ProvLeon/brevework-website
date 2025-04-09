@@ -58,7 +58,7 @@ export default function AboutContent() {
       <section className="grid md:grid-cols-2 gap-10 md:gap-16 items-center mb-20 md:mb-28">
         {/* Text Column */}
         <motion.div
-          variants={fadeInUpInView} // Apply self-contained whileInView variant
+          // variants={fadeInUpInView} // Apply self-contained whileInView variant
           initial="initial"
           whileInView="whileInView"
           viewport={fadeInUpInView.viewport}
@@ -76,7 +76,7 @@ export default function AboutContent() {
 
         {/* Image Column */}
         <motion.div
-          variants={fadeInUpInView} // Apply self-contained whileInView variant
+          // variants={fadeInUpInView} // Apply self-contained whileInView variant
           initial="initial"
           whileInView="whileInView"
           viewport={fadeInUpInView.viewport}
